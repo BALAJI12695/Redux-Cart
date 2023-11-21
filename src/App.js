@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import BasketProducts from './Components/BasketProducts';
+import Navbar from './Components/Navbar';
+import { updateTotal } from './Feature/basketSlice';
+import { useEffect } from 'react';
 
 function App() {
+  const{ products } = useSelector((store) => store.basket );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateTotal())
+  
+  }, [products,dispatch])
+  
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Navbar />
+      <h1 className="text-center font-medium mt-2 py-4 text-3xl" > Redux Store</h1>
+      <BasketProducts />
+    </>
   );
 }
 
